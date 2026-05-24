@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Digital Para Iniciantes</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: url("https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1600&q=80")
+  no-repeat center/cover;
+  min-height: 100vh;
+  text-align: center;
+  position: relative;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  margin: auto;
+  padding: 15px 20px;
+}
+
+.badge {
+  background: red;
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 34px;
+  margin: 8px 0;
+  line-height: 1.2;
+}
+
+p {
+  font-size: 20px;
+  opacity: 0.95;
+  margin: 8px 0;
+}
+
+.countdown {
+  background: rgba(255,0,0,0.3);
+  border: 1px solid red;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 12px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.price {
+  font-size: 48px;
+  color: lime;
+  margin: 10px 0 5px 0;
+  font-weight: bold;
+}
+
+.guarantee {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 15px;
+}
+
+button {
+  width: 100%;
+  max-width: 340px;
+  padding: 16px;
+  font-size: 22px;
+  background: lime;
+  color: black;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+ 0% { transform: scale(1); }
+ 50% { transform: scale(1.05); }
+ 100% { transform: scale(1); }
+}
+
+.popup {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  background: #111;
+  border: 1px solid lime;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  z-index: 999;
+  display: none;
+  max-width: 260px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<div class="container">
+
+  <div class="badge">🔥 OFERTA LIMITADA</div>
+
+  <h1>Marketing Digital Para Iniciantes</h1>
+
+  <p>Aprenda do zero e comece a criar renda online com estratégias simples.</p>
+
+  <div class="countdown">
+    ⏳ Oferta termina em: <span id="timer">15:00</span>
+  </div>
+
+  <div class="price">258 MZN</div>
+  <div class="guarantee">✅ Acesso imediato | ✅ Suporte no WhatsApp | ✅ Garantia 7 dias</div>
+
+  <button onclick="pagar()">
+    🚀 QUERO COMEÇAR AGORA
+  </button>
+
+</div>
+
+<div class="popup" id="popup"></div>
+
+<script>
+// Contador individual por pessoa
+let time = localStorage.getItem('timer') || 15 * 60;
+
+function updateTimer() {
+  let m = Math.floor(time / 60);
+  let s = time % 60;
+  document.getElementById("timer").textContent = `${m}:${s < 10 ? "0" : ""}${s}`;
+
+  if (time > 0) {
+    time--;
+    localStorage.setItem('timer', time);
+  } else {
+    time = 15 * 60;
+    localStorage.setItem('timer', time);
+  }
+}
+
+updateTimer();
+setInterval(updateTimer, 1000);
+
+// Popup de compra recente
+const popup = document.getElementById("popup");
+const names = [
+  "João de Maputo",
+  "Maria de Nampula", 
+  "Carlos de Beira",
+  "Ana de Quelimane",
+  "Pedro de Tete",
+  "Lucas de Angola",
+  "Joana de Moçambique"
+];
+
+function showPopup() {
+  const name = names[Math.floor(Math.random() * names.length)];
+  popup.textContent = `🔥 ${name} acabou de comprar este curso`;
+  popup.style.display = "block";
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 4000);
+}
+
+setInterval(showPopup, 7000);
+
+// Função de pagamento com fallback
+function pagar(){
+  window.open('https://ratixpay.co.mz/checkout.html?produto=NLXBYI6RH', '_blank');
+  setTimeout(() => {
+    if(!document.hidden){
+      if(confirm("A página não abriu? Clica OK para pagar pelo Paynow.")){
+        window.open('https://paynow.co.mz', '_blank');
+      }
+    }
+  }, 3500);
+}
+</script>
+
+</body>
+  </html>
